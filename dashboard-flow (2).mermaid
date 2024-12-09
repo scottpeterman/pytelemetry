@@ -1,0 +1,48 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#fff', 'textColor': '#2b2b2b', 'lineColor': '#2b2b2b'}}}%%
+flowchart LR
+    subgraph APP_INIT[Application Start]
+        A[Start Application] --> B[Initialize DeviceDashboard]
+    end
+
+    subgraph DEVICE_CONN[Device Connection]
+        E[Connect Button] --> F[Create Worker]
+        F --> G{Device Type}
+        G -->|NXOS| H1[NXOS SSH]
+        G -->|EOS| H2[EOS SSH]
+        G -->|IOS| H3[Default]
+        H1 & H2 & H3 --> I[NAPALM Init]
+    end
+
+    subgraph DATA_COLLECT[Data Collection]
+        I --> J[Open Connection]
+        J --> K[Get Facts]
+        J --> M1[Get Interfaces]
+        J --> M2[Get LLDP]
+        J --> M3[Get ARP]
+        J --> M4[Get Routes]
+    end
+
+    subgraph PARSE[Parse & Process]
+        M1 --> N1[TextFSM Parse]
+        N1 --> O1[Process Data]
+        O1 --> P1[Calculate Stats]
+    end
+
+    subgraph UPDATE[UI Update]
+        P1 --> Q1[Interface View]
+        M2 --> Q2[LLDP Table]
+        M3 --> Q3[ARP Table]
+        M4 --> Q4[Route Table]
+        K --> Q5[Device Info]
+    end
+
+    A --> E
+
+    style APP_INIT fill:#ffffff,stroke:#666
+    style DEVICE_CONN fill:#ffffff,stroke:#666
+    style DATA_COLLECT fill:#ffffff,stroke:#666
+    style PARSE fill:#ffffff,stroke:#666
+    style UPDATE fill:#ffffff,stroke:#666
+    
+    classDef default fill:#fff,stroke:#333,color:#333
+    classDef decision fill:#fff,stroke:#333,color:#333

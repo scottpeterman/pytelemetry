@@ -1,0 +1,59 @@
+flowchart TD
+    A[Start Application] --> B[Initialize DeviceDashboard]
+    
+    subgraph UI_INIT[Dashboard UI Initialization]
+        B --> C[Setup Main UI Components]
+        C --> D1[Create Connection Group]
+        C --> D2[Create Device Info Widget]
+        C --> D3[Create Interfaces Widget]
+        C --> D4[Create Neighbors Widget]
+        C --> D5[Create Route Widget]
+    end
+
+    subgraph CONNECTION[Device Connection Flow]
+        E[User Clicks Connect] --> F[Create Worker Thread]
+        F --> G{Device Type Check}
+        G -->|NXOS| H1[Configure NXOS SSH]
+        G -->|EOS| H2[Configure EOS SSH]
+        G -->|IOS| H3[Default Config]
+        H1 & H2 & H3 --> I[Initialize NAPALM Driver]
+    end
+
+    subgraph DATA_COLLECTION[Data Collection Process]
+        I --> J[Open Device Connection]
+        J --> K[Get Device Facts]
+        K --> L[Check Switch Type]
+        L --> M1[Get Interface Info]
+        L --> M2[Get LLDP Neighbors]
+        L --> M3[Get ARP Table]
+        L --> M4[Get Route Info]
+    end
+
+    subgraph PARSING[Data Parsing]
+        M1 --> N1[TextFSM Auto Engine]
+        N1 --> O1[Parse Interface Data]
+        O1 --> P1[Calculate Interface Stats]
+    end
+
+    subgraph UI_UPDATE[Dashboard Updates]
+        P1 --> Q1[Update Interface Display]
+        M2 --> Q2[Update Neighbors Table]
+        M3 --> Q3[Update ARP Table]
+        M4 --> Q4[Update Route Tables]
+        K --> Q5[Update Device Info]
+    end
+
+    subgraph MONITORING[Continuous Monitoring]
+        R[Refresh Timer] --> S[Cleanup Worker]
+        S --> T[Start New Worker]
+        T --> DATA_COLLECTION
+    end
+
+    Q1 & Q2 & Q3 & Q4 & Q5 --> R
+
+    style UI_INIT fill:#f0f9ff,stroke:#0ea5e9
+    style CONNECTION fill:#f0fdf4,stroke:#10b981
+    style DATA_COLLECTION fill:#eff6ff,stroke:#3b82f6
+    style PARSING fill:#fefce8,stroke:#ca8a04
+    style UI_UPDATE fill:#fdf2f8,stroke:#db2777
+    style MONITORING fill:#f5f3ff,stroke:#8b5cf6

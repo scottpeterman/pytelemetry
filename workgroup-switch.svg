@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 39">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="0.3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke="#22D3EE" stroke-width="0.8" filter="url(#glow)">
+    <!-- Main body outlines -->
+    <path d="M57.162 37.094v-18.1H0.894v18.1h56.268z" opacity="0.4"/>
+    <path d="M0.5 18.994L23.322 0.5h52.334L56.768 18.994H0.5z" opacity="0.4"/>
+    <path d="M57.162 37.881L75.656 17.42V0.5L57.162 18.994v18.887z" opacity="0.4"/>
+
+    <!-- Network connection paths -->
+    <path d="M33.553 14.272l-1.181.787H18.601l-1.574 1.574-3.935-1.574 7.87-2.361-1.574 1.574h14.166z" stroke-width="1"/>
+    <path d="M44.571 7.189L43.39 8.369H29.618l-1.574 1.18-3.935-1.574 7.87-1.967-1.574 1.18h14.166z" stroke-width="1"/>
+    <path d="M35.914 11.911l1.18-.787H51.26l1.18-1.574 3.935 1.574-7.476 2.361 1.18-1.574H35.914z" stroke-width="1"/>
+    <path d="M43.39 4.828l1.181-.787h13.772l1.574-1.574 3.935 1.967-7.87 1.967 1.574-1.574H43.39z" stroke-width="1"/>
+
+    <!-- Grid lines -->
+    <path d="M14.5 18.994h42.662" opacity="0.2"/>
+    <path d="M28.5 0.5v18.494" opacity="0.2"/>
+    <path d="M57.162 18.994L75.656 0.5" opacity="0.2"/>
+
+    <!-- Corner brackets -->
+    <path d="M2 2h6M2 2v6" stroke-width="1"/>
+    <path d="M75 2h-6M75 2v6" stroke-width="1"/>
+    <path d="M2 37h6M2 37v-6" stroke-width="1"/>
+    <path d="M57 37h-6M57 37v-6" stroke-width="1"/>
+  </g>
+</svg>
